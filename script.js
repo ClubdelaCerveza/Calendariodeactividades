@@ -40,11 +40,17 @@ registerBtn.addEventListener("click", () => {
   const password = document.getElementById("new-password").value.trim();
 
   if (!username || !password) return alert("Completa todos los campos.");
-  if (usuarios.some(u => u.username === username) || pendientes.some(u => u.username === username))
+
+  if (
+    usuarios.some(u => u.username === username) ||
+    pendientes.some(u => u.username === username)
+  )
     return alert("Ese usuario ya existe o está pendiente.");
 
+  // GUARDAR SOLICITUD PENDIENTE
   pendientes.push({ username, password, rol: "usuario", actividades: [] });
   localStorage.setItem("pendientes", JSON.stringify(pendientes));
+
   alert("Solicitud enviada. Espera aprobación del administrador.");
   registerContainer.classList.add("hidden");
   loginContainer.classList.remove("hidden");
