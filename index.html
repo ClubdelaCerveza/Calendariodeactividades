@@ -1,212 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Plataforma de Actividades</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-    #container {
-      width: 90%;
-      max-width: 1000px;
-      background: white;
-      margin-top: 40px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1, h2 { text-align: center; color: #333; }
-    #loginForm, #app { display: none; }
-    input, button, textarea {
-      padding: 8px;
-      margin: 5px 0;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover { background: #45a049; }
-    #calendario {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 20px;
-    }
-    .mes {
-      width: 300px;
-      background: #f9f9f9;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .mes h3 { text-align: center; }
-    .actividad {
-      background: #d1e7dd;
-      margin: 3px 0;
-      padding: 5px;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-    #chat {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      height: 250px;
-      overflow-y: auto;
-      padding: 10px;
-      background: #fafafa;
-    }
-    #mensajeForm {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    #mensajeForm input {
-      flex: 1;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - Mis Actividades</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="container">
-    <h1>Plataforma de Actividades</h1>
-
-    <!-- 🔐 LOGIN -->
-    <div id="loginForm">
-      <h2>Iniciar Sesión</h2>
-      <input type="text" id="usuario" placeholder="Nombre de usuario">
-      <button id="loginBtn">Entrar</button>
-    </div>
-
-    <!-- 🌐 APLICACIÓN -->
-    <div id="app">
-      <h2 id="bienvenida"></h2>
-      <button id="logoutBtn">Cerrar Sesión</button>
-
-      <h3>Listado de Actividades</h3>
-      <ul id="listaActividades"></ul>
-
-      <h3>Calendario (Octubre, Noviembre, Diciembre)</h3>
-      <div id="calendario"></div>
-
-      <h3>Chat</h3>
-      <div id="chat"></div>
-      <form id="mensajeForm">
-        <input type="text" id="mensajeInput" placeholder="Escribe un mensaje...">
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+  <div class="login-container">
+    <h1>Mis Actividades</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Usuario" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="#" id="registerLink">Regístrate</a></p>
   </div>
 
   <script>
-    // --- DATOS DE EJEMPLO ---
-    const actividades = [
-      { titulo: "Reunión de equipo", fecha: "2025-10-15", descripcion: "Planificación mensual" },
-      { titulo: "Entrega de proyecto", fecha: "2025-11-03", descripcion: "Entrega cliente" },
-      { titulo: "Fiesta de fin de año", fecha: "2025-12-20", descripcion: "Celebración del equipo" }
-    ];
-
-    // --- INICIO DE SESIÓN ---
-    const loginForm = document.getElementById('loginForm');
-    const app = document.getElementById('app');
-    const usuarioInput = document.getElementById('usuario');
-    const bienvenida = document.getElementById('bienvenida');
-
-    const usuarioGuardado = localStorage.getItem('usuario');
-    if (usuarioGuardado) mostrarApp(usuarioGuardado);
-    else loginForm.style.display = 'block';
-
-    document.getElementById('loginBtn').addEventListener('click', () => {
-      const nombre = usuarioInput.value.trim();
-      if (!nombre) return alert("Introduce tu nombre de usuario");
-      localStorage.setItem('usuario', nombre);
-      mostrarApp(nombre);
-    });
-
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('usuario');
-      location.reload();
-    });
-
-    function mostrarApp(nombre) {
-      bienvenida.textContent = "Bienvenido, " + nombre;
-      loginForm.style.display = 'none';
-      app.style.display = 'block';
-      mostrarActividades();
-      mostrarCalendario();
-      cargarChat();
-    }
-
-    // --- LISTADO DE ACTIVIDADES ---
-    function mostrarActividades() {
-      const lista = document.getElementById('listaActividades');
-      lista.innerHTML = '';
-      actividades.forEach(a => {
-        const li = document.createElement('li');
-        li.textContent = `${a.fecha}: ${a.titulo} - ${a.descripcion}`;
-        lista.appendChild(li);
-      });
-    }
-
-    // --- CALENDARIO ---
-    function mostrarCalendario() {
-      const cont = document.getElementById('calendario');
-      cont.innerHTML = '';
-      const meses = ['Octubre', 'Noviembre', 'Diciembre'];
-
-      meses.forEach((mes, i) => {
-        const div = document.createElement('div');
-        div.className = 'mes';
-        div.innerHTML = `<h3>${mes}</h3>`;
-
-        const mesNum = 10 + i;
-        actividades.filter(a => new Date(a.fecha).getMonth() + 1 === mesNum)
-                   .forEach(a => {
-                     const p = document.createElement('div');
-                     p.className = 'actividad';
-                     p.textContent = `${a.fecha.split('-')[2]}: ${a.titulo}`;
-                     div.appendChild(p);
-                   });
-        cont.appendChild(div);
-      });
-    }
-
-    // --- CHAT LOCAL ---
-    const chatDiv = document.getElementById('chat');
-    const mensajeInput = document.getElementById('mensajeInput');
-    const usuarioActual = localStorage.getItem('usuario');
-    let mensajes = JSON.parse(localStorage.getItem('mensajes') || '[]');
-
-    function cargarChat() {
-      chatDiv.innerHTML = '';
-      mensajes.forEach(m => {
-        const p = document.createElement('p');
-        p.innerHTML = `<b>${m.usuario}:</b> ${m.texto}`;
-        chatDiv.appendChild(p);
-      });
-      chatDiv.scrollTop = chatDiv.scrollHeight;
-    }
-
-    document.getElementById('mensajeForm').addEventListener('submit', (e) => {
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const texto = mensajeInput.value.trim();
-      if (!texto) return;
-      const msg = { usuario: usuarioActual, texto, hora: new Date().toLocaleTimeString() };
-      mensajes.push(msg);
-      localStorage.setItem('mensajes', JSON.stringify(mensajes));
-      mensajeInput.value = '';
-      cargarChat();
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user && pass) {
+        localStorage.setItem("usuario", user);
+        window.location.href = "app.html";
+      }
     });
   </script>
 </body>
 </html>
+
+ 
