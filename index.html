@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Actividades</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- LOGIN -->
+  <div id="login-container" class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="username" placeholder="Usuario">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button id="login-btn">Entrar</button>
+    <p>¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
+  </div>
+
+  <!-- REGISTRO -->
+  <div id="register-container" class="login-container hidden">
+    <h2>Registro</h2>
+    <input type="text" id="new-username" placeholder="Usuario">
+    <input type="password" id="new-password" placeholder="Contraseña">
+    <button id="register-btn">Solicitar registro</button>
+    <p>¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión</a></p>
+  </div>
+
+  <!-- PANEL DE USUARIO -->
+  <div id="dashboard" class="hidden">
+    <header>
+      <h1>Bienvenido, <span id="user-display"></span></h1>
+      <button id="logout-btn">Cerrar sesión</button>
+    </header>
+
+    <section>
+      <h2>Agregar actividad</h2>
+      <input type="text" id="actividad" placeholder="Descripción de la actividad">
+      <input type="date" id="fecha">
+      <button id="add-actividad">Agregar</button>
+    </section>
+
+    <section>
+      <h2>Mis actividades</h2>
+      <ul id="lista-actividades"></ul>
+    </section>
+
+    <section>
+      <h2>Calendario (Octubre, Noviembre, Diciembre)</h2>
+      <div id="trimestre-calendar"></div>
+    </section>
+  </div>
+
+  <!-- PANEL ADMIN -->
+  <div id="admin-panel" class="hidden">
+    <header>
+      <h1>Panel de Administrador</h1>
+      <button id="admin-logout">Cerrar sesión</button>
+    </header>
+
+    <h2>Solicitudes de registro</h2>
+    <ul id="pending-users"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
