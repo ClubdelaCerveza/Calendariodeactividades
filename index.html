@@ -1,35 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iniciar Sesión - Mis Actividades</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Actividades</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #005f73;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #0a9396;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #007f83;
+    }
+
+    h2, h3 {
+      color: #005f73;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .logout {
+      float: right;
+      background-color: #d00000;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 6px;
+    }
+
+    th {
+      background-color: #0a9396;
+      color: white;
+    }
+
+    .activity-day {
+      background-color: #ee9b00;
+      color: white;
+      border-radius: 50%;
+      padding: 5px;
+    }
+
+    #registerDiv, #loginDiv, #mainDiv {
+      display: none;
+    }
+
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Mis Actividades</h1>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Usuario" required />
-      <input type="password" id="password" placeholder="Contraseña" required />
-      <button type="submit">Iniciar Sesión</button>
-    </form>
-    <p>¿No tienes cuenta? <a href="#" id="registerLink">Regístrate</a></p>
-  </div>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+  <header>
+    <h1>Gestión de Actividades</h1>
+  </header>
 
-      if (user && pass) {
-        localStorage.setItem("usuario", user);
-        window.location.href = "app.html";
-      }
-    });
-  </script>
-</body>
-</html>
-
- 
+  <!-- Registro -->
+  <div class="container" id="registerDiv">
+    <h2>Crear cuenta</h2>
+    <input type="text" id="newUser" placeholder="Usuario nuevo">
+    <input type="password" id="newPass" placehold
