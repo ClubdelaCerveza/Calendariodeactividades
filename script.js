@@ -47,14 +47,7 @@ registerBtn.addEventListener("click", () => {
   )
     return alert("Ese usuario ya existe o está pendiente.");
 
-  // GUARDAR SOLICITUD PENDIENTE
-  pendientes.push({ username, password, rol: "usuario", actividades: [] });
-  localStorage.setItem("pendientes", JSON.stringify(pendientes));
-
-  alert("Solicitud enviada. Espera aprobación del administrador.");
-  registerContainer.classList.add("hidden");
-  loginContainer.classList.remove("hidden");
-});
+  });
 
 // === LOGIN ===
 loginBtn.addEventListener("click", () => {
