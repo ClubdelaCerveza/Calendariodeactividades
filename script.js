@@ -22,11 +22,6 @@ const calendarDiv = document.getElementById("trimestre-calendar");
 const pendingList = document.getElementById("pending-users");
 
 // === CREAR ADMIN POR DEFECTO ===
-if (!usuarios.some(u => u.rol === "admin")) {
-  usuarios.push({ username: "admin", password: "1234", rol: "admin" });
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  alert("Se creó un administrador:\nUsuario: admin\nContraseña: 1234");
-}
 
 // === CAMBIO ENTRE LOGIN Y REGISTRO ===
 showRegister.addEventListener("click", () => {
